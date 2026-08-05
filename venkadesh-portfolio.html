@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Venkadesh T — DevOps Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0d0f14;
+    --surface: #13161d;
+    --border: #1e2330;
+    --accent: #4f8ef7;
+    --accent2: #7dd3a8;
+    --text: #e2e6f0;
+    --muted: #6b7487;
+    --dim: #3a4055;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'Inter', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px; height: 56px;
+    background: rgba(13,15,20,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--mono); font-size: 13px; color: var(--accent);
+    letter-spacing: 0.04em;
+  }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a {
+    font-size: 13px; color: var(--muted); text-decoration: none;
+    font-family: var(--mono); letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 860px; margin: 0 auto; padding: 0 28px; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding-top: 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 48px 48px;
+    opacity: 0.35;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 100%);
+  }
+  .hero-inner { position: relative; padding: 80px 0 60px; }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 12px; color: var(--accent2);
+    border: 1px solid rgba(125,211,168,0.2);
+    padding: 4px 12px; border-radius: 4px;
+    margin-bottom: 28px;
+    letter-spacing: 0.06em;
+  }
+  .hero-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent2); animation: pulse 2s ease infinite; }
+  @keyframes pulse { 0%,100% { opacity:1 } 50% { opacity:0.3 } }
+  h1 {
+    font-size: clamp(2.6rem, 6vw, 4rem);
+    font-weight: 600; line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+  }
+  h1 span { color: var(--accent); }
+  .hero-sub {
+    font-size: 16px; color: var(--muted); max-width: 520px;
+    line-height: 1.7; margin-bottom: 40px;
+  }
+  .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    font-family: var(--mono); font-size: 13px; letter-spacing: 0.04em;
+    padding: 10px 22px; border-radius: 6px; text-decoration: none;
+    cursor: pointer; transition: all 0.2s; border: 1px solid transparent;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: #3a7de8; }
+  .btn-outline { border-color: var(--border); color: var(--muted); background: transparent; }
+  .btn-outline:hover { border-color: var(--dim); color: var(--text); }
+
+  /* ── SECTIONS ── */
+  section { padding: 80px 0; border-top: 1px solid var(--border); }
+  .section-label {
+    font-family: var(--mono); font-size: 11px; color: var(--accent);
+    letter-spacing: 0.12em; text-transform: uppercase;
+    margin-bottom: 36px;
+  }
+  h2 {
+    font-size: 1.75rem; font-weight: 600;
+    letter-spacing: -0.02em; margin-bottom: 8px;
+  }
+
+  /* ── SKILLS ── */
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 14px; margin-top: 36px;
+  }
+  .skill-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; padding: 18px 20px;
+    transition: border-color 0.2s;
+  }
+  .skill-card:hover { border-color: var(--dim); }
+  .skill-cat {
+    font-family: var(--mono); font-size: 11px; color: var(--accent2);
+    letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px;
+  }
+  .skill-items {
+    font-size: 13px; color: var(--muted); line-height: 1.8;
+  }
+  .skill-items span {
+    display: inline-block; background: rgba(79,142,247,0.08);
+    border: 1px solid rgba(79,142,247,0.15); color: var(--text);
+    font-family: var(--mono); font-size: 11px; padding: 2px 8px;
+    border-radius: 3px; margin: 2px 3px 2px 0;
+  }
+
+  /* ── PROJECTS ── */
+  .project-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 28px 28px 24px;
+    margin-bottom: 20px; transition: border-color 0.2s;
+  }
+  .project-card:hover { border-color: var(--dim); }
+  .project-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 14px; }
+  .project-title { font-size: 15px; font-weight: 600; color: var(--text); }
+  .project-tag {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em;
+    padding: 3px 10px; border-radius: 3px; white-space: nowrap;
+    background: rgba(79,142,247,0.1); border: 1px solid rgba(79,142,247,0.2); color: var(--accent);
+  }
+  .project-desc { font-size: 13.5px; color: var(--muted); line-height: 1.75; margin-bottom: 16px; }
+  .project-highlights { list-style: none; }
+  .project-highlights li {
+    font-size: 13px; color: var(--muted); padding: 5px 0;
+    padding-left: 18px; position: relative; line-height: 1.6;
+  }
+  .project-highlights li::before {
+    content: '→'; position: absolute; left: 0;
+    color: var(--accent2); font-size: 11px; top: 7px;
+  }
+  .project-stack { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    font-family: var(--mono); font-size: 11px;
+    padding: 3px 9px; border-radius: 3px;
+    background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+    color: var(--muted);
+  }
+
+  /* ── EXPERIENCE ── */
+  .exp-item { margin-bottom: 36px; }
+  .exp-meta { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+  .exp-role { font-size: 15px; font-weight: 600; }
+  .exp-company { font-size: 13px; color: var(--accent); font-family: var(--mono); }
+  .exp-date { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  .exp-list { list-style: none; }
+  .exp-list li {
+    font-size: 13.5px; color: var(--muted); padding: 4px 0;
+    padding-left: 18px; position: relative; line-height: 1.65;
+  }
+  .exp-list li::before { content: '—'; position: absolute; left: 0; color: var(--dim); }
+
+  /* ── CERTS ── */
+  .cert-grid { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+  .cert-pill {
+    font-family: var(--mono); font-size: 12px;
+    padding: 8px 16px; border-radius: 6px;
+    border: 1px solid var(--border); color: var(--muted);
+    background: var(--surface); display: flex; align-items: center; gap: 8px;
+  }
+  .cert-pill::before { content: '◆'; font-size: 8px; color: var(--accent2); }
+
+  /* ── CONTACT ── */
+  .contact-row { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
+  .contact-link {
+    display: flex; align-items: center; gap: 10px;
+    font-family: var(--mono); font-size: 13px; color: var(--muted);
+    text-decoration: none; background: var(--surface);
+    border: 1px solid var(--border); padding: 10px 18px;
+    border-radius: 6px; transition: all 0.2s;
+  }
+  .contact-link:hover { border-color: var(--dim); color: var(--text); }
+  .contact-link .icon { font-size: 16px; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border); padding: 28px 0;
+    text-align: center;
+    font-family: var(--mono); font-size: 12px; color: var(--dim);
+  }
+
+  /* ── DIVIDER ── */
+  .divider { height: 1px; background: var(--border); margin: 0; }
+
+  @media (max-width: 600px) {
+    nav { padding: 0 20px; }
+    .nav-links { gap: 16px; }
+    .container { padding: 0 20px; }
+    section { padding: 56px 0; }
+    .project-header { flex-direction: column; }
+    .exp-meta { flex-direction: column; gap: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">venkadesh.dev</div>
+  <ul class="nav-links">
+    <li><a href="#about">about</a></li>
+    <li><a href="#skills">skills</a></li>
+    <li><a href="#projects">projects</a></li>
+    <li><a href="#experience">experience</a></li>
+    <li><a href="#contact">contact</a></li>
+  </ul>
+</nav>
+
+<main>
+  <section id="hero">
+    <div class="hero-grid-bg"></div>
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-tag">available for opportunities</div>
+        <h1>Venkadesh T<br/>— <span>DevOps</span> Engineer</h1>
+        <p class="hero-sub">
+          I build and ship cloud-native infrastructure — CI/CD pipelines,
+          Kubernetes clusters, and AWS workloads that actually hold up in production.
+          Based in Palani, India.
+        </p>
+        <div class="hero-cta">
+          <a href="#projects" class="btn btn-primary">View my work</a>
+          <a href="mailto:venkadeshvenkadesh464@gmail.com" class="btn btn-outline">Get in touch</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="section-label">// about me</div>
+      <h2>A bit about what I do</h2>
+      <p style="color:var(--muted); max-width:620px; margin-top:16px; font-size:14.5px; line-height:1.8;">
+        I'm a Cloud &amp; DevOps Engineer who enjoys the intersection of software delivery and infrastructure. My focus is on making deployments fast, reliable, and observable — whether that's containerizing an app with Docker, automating rollouts with ArgoCD, or standing up a serverless Kubernetes cluster on EKS Fargate.
+      </p>
+      <p style="color:var(--muted); max-width:620px; margin-top:14px; font-size:14.5px; line-height:1.8;">
+        I graduated in Computer Science from Bannari Amman Institute of Technology in 2024, and I've spent the time since building real projects that mirror production environments — not just tutorials. Strong with Linux, comfortable writing Python and Bash automation, and always reading the docs.
+      </p>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="container">
+      <div class="section-label">// skills &amp; tools</div>
+      <h2>What I work with</h2>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-cat">Cloud</div>
+          <div class="skill-items">
+            <span>EC2</span><span>IAM</span><span>S3</span>
+            <span>EKS</span><span>ALB</span><span>VPC</span><span>Fargate</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-cat">Containers</div>
+          <div class="skill-items">
+            <span>Docker</span><span>Kubernetes</span><span>Helm</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-cat">CI / CD</div>
+          <div class="skill-items">
+            <span>Jenkins</span><span>ArgoCD</span><span>GitHub Actions</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-cat">Infrastructure as Code</div>
+          <div class="skill-items">
+            <span>Terraform</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-cat">Observability</div>
+          <div class="skill-items">
+            <span>Prometheus</span><span>Grafana</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-cat">Languages &amp; OS</div>
+          <div class="skill-items">
+            <span>Python</span><span>Bash</span><span>Linux</span><span>Git</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="container">
+      <div class="section-label">// projects</div>
+      <h2>Things I've built</h2>
+      <div style="margin-top:32px;">
+
+        <div class="project-card">
+          <div class="project-header">
+            <div class="project-title">Amazon EKS Deployment with AWS Fargate &amp; ALB Ingress</div>
+            <span class="project-tag">Kubernetes · AWS</span>
+          </div>
+          <p class="project-desc">
+            A fully serverless Kubernetes deployment on EKS using Fargate — no worker nodes to manage. External traffic routed through an AWS Application Load Balancer via Kubernetes Ingress.
+          </p>
+          <ul class="project-highlights">
+            <li>Deployed multi-component app using eksctl, kubectl, and Helm with Fargate profiles for serverless compute.</li>
+            <li>Configured AWS Load Balancer Controller via Helm + IRSA to automate ALB provisioning.</li>
+            <li>Set up Prometheus and Grafana dashboards for real-time workload observability.</li>
+            <li>Eliminated manual node management entirely — scaling handled by Fargate automatically.</li>
+          </ul>
+          <div class="project-stack">
+            <span class="tag">Amazon EKS</span>
+            <span class="tag">Fargate</span>
+            <span class="tag">Helm</span>
+            <span class="tag">ALB Ingress</span>
+            <span class="tag">IRSA</span>
+            <span class="tag">Prometheus</span>
+            <span class="tag">Grafana</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-header">
+            <div class="project-title">CI/CD Pipeline for Containerized Python Application</div>
+            <span class="project-tag">CI/CD · GitOps</span>
+          </div>
+          <p class="project-desc">
+            End-to-end pipeline automating everything from a git push to a live Kubernetes deployment — cut release time from ~15 minutes down to under 3 minutes.
+          </p>
+          <ul class="project-highlights">
+            <li>GitHub Webhooks trigger Jenkins on every push, eliminating all manual build steps.</li>
+            <li>Docker images built, tagged, and published to Docker Hub automatically in the pipeline.</li>
+            <li>ArgoCD syncs deployment manifests from Git for GitOps-style continuous delivery.</li>
+            <li>Rolling updates to Kubernetes ensure zero-downtime releases; rollout health verified with kubectl.</li>
+          </ul>
+          <div class="project-stack">
+            <span class="tag">GitHub</span>
+            <span class="tag">Jenkins</span>
+            <span class="tag">Docker</span>
+            <span class="tag">Docker Hub</span>
+            <span class="tag">ArgoCD</span>
+            <span class="tag">Kubernetes</span>
+            <span class="tag">Python</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="container">
+      <div class="section-label">// experience</div>
+      <h2>Where I've worked</h2>
+      <div style="margin-top:32px;">
+
+        <div class="exp-item">
+          <div class="exp-meta">
+            <div>
+              <div class="exp-role">Research Analyst Intern</div>
+              <div class="exp-company">eClerx</div>
+            </div>
+            <div class="exp-date">Sep 2025 – Dec 2025</div>
+          </div>
+          <ul class="exp-list">
+            <li>Conducted structured and unstructured data analysis using company research tools to support business decisions.</li>
+            <li>Prepared analytical reports and dashboards covering market trends and competitor activity that improved team research efficiency.</li>
+          </ul>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-meta">
+            <div>
+              <div class="exp-role">Frontend Intern</div>
+              <div class="exp-company">Tech Volt Software Pvt Ltd</div>
+            </div>
+            <div class="exp-date">Mar 2022 – Apr 2022</div>
+          </div>
+          <ul class="exp-list">
+            <li>Built responsive UIs with HTML, CSS, JavaScript, Bootstrap, and EJS across multiple device sizes.</li>
+            <li>Developed a travel booking web app with destination browsing, trip selection, and booking form features.</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION & CERTS -->
+  <section id="education">
+    <div class="container">
+      <div class="section-label">// education &amp; certifications</div>
+      <h2>Background</h2>
+      <div style="margin-top:24px; display:flex; align-items:flex-start; gap:20px; flex-wrap:wrap;">
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:20px 24px; flex:1; min-width:260px;">
+          <div style="font-family:var(--mono); font-size:11px; color:var(--accent2); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">Degree</div>
+          <div style="font-size:15px; font-weight:600;">B.E. Computer Science &amp; Engineering</div>
+          <div style="font-size:13px; color:var(--muted); margin-top:4px;">Bannari Amman Institute of Technology, Erode</div>
+          <div style="font-family:var(--mono); font-size:12px; color:var(--dim); margin-top:6px;">2020 – 2024</div>
+        </div>
+      </div>
+      <div class="cert-grid">
+        <div class="cert-pill">Python Programming — Udemy</div>
+        <div class="cert-pill">AWS &amp; DevOps — Pankaj Sir Academy</div>
+        <div class="cert-pill">Prayukti Hackathon Participant</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-label">// contact</div>
+      <h2>Let's connect</h2>
+      <p style="color:var(--muted); font-size:14px; margin-top:12px; max-width:460px; line-height:1.7;">
+        I'm open to DevOps, Cloud, or SRE roles. Feel free to reach out over email or connect on LinkedIn.
+      </p>
+      <div class="contact-row">
+        <a href="mailto:venkadeshvenkadesh464@gmail.com" class="contact-link">
+          <span class="icon">✉</span> venkadeshvenkadesh464@gmail.com
+        </a>
+        <a href="tel:6380575356" class="contact-link">
+          <span class="icon">☏</span> 6380575356
+        </a>
+        <a href="https://linkedin.com/in/venkadesht" target="_blank" class="contact-link">
+          <span class="icon">in</span> VENKADESH T
+        </a>
+        <a href="https://github.com/venkadesht" target="_blank" class="contact-link">
+          <span class="icon">⌥</span> venkadesht
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    built by venkadesh t &nbsp;·&nbsp; palani, india
+  </div>
+</footer>
+
+</body>
+</html>
